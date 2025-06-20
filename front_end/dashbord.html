@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+      background: #f9f9f9;
+    }
+
+    .headerr {
+      text-align: center;
+      font-size: 60px;
+    }
+
+    span {
+      color: lightblue;
+    }
+
+    .categories {
+      display: flex;
+      gap: 20px; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+    }
+
+    .category {
+      height: 250px;
+      background-color: ;
+      width: 400px;
+      border-radius: 50px;
+      border: 2px solid lightblue ;
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="greeting"></h2>
+  <h1 class="headerr">Select <span>Category</span></h1>
+
+  <div class="categories">
+    <div class="category"></div>
+    <div class="category"></div>
+    <div class="category"></div>
+  </div>
+
+  <script>
+    const username = localStorage.getItem('username');
+    document.getElementById('greeting').textContent = username
+      ? `Salam ${username}!`
+      : 'Hello, guest!';
+  </script>
+
+</body>
+</html>

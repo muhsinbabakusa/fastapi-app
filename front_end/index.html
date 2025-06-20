@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { display: block; margin: 10px 0; padding: 8px; width: 300px; }
+    #response { margin-top: 20px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>Sign Up</h2>
+  <input id="firstName" placeholder="First Name" />
+  <input id="lastName" placeholder="Last Name" />
+  <input id="email" placeholder="Email" />
+  <input id="username" placeholder="Username" />
+  <input id="password" type="password" placeholder="Password" />
+  <button onclick="register()">Register</button>
+
+  <div id="response"></div>
+  <p>Already have an account? <a href="login.html">Login here</a></p>
+
+  <script>
+    function register() {
+      const data = {
+        firstName: document.getElementById('firstName').value,
+        lastName: document.getElementById('lastName').value,
+        email: document.getElementById('email').value,
+        username: document.getElementById('username').value,
+        password: document.getElementById('password').value,
+      };
+
+      fetch('http://localhost:8000/register', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      .then(res => res.json())
+      .then(data => showResponse(data))
+      .catch(err => showResponse(err));
+    }
+
+    function showResponse(data) {
+      document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+
+</body>
+</html>

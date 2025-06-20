@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input, button { display: block; margin: 10px 0; padding: 8px; width: 300px; }
+    #response { margin-top: 20px; white-space: pre-wrap; background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+
+  <h2>Login</h2>
+  <input id="username" placeholder="Username" />
+  <input id="password" type="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+
+  <div id="response"></div>
+  <p>Don't have an account? <a href="signup.html">Sign up here</a></p>
+
+  <!-- Same <head> and style as before -->
+<script>
+    let accessToken = '';
+  
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+  
+      const formData = new URLSearchParams();
+      formData.append('username', username);
+      formData.append('password', password);
+  
+      fetch('http://localhost:8000/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        accessToken = data.access_token;
+        if (accessToken) {
+          localStorage.setItem('accessToken', accessToken);
+          localStorage.setItem('username', username); // save username
+          window.location.href = 'dashbord.html';
+        } else {
+          showResponse({ error: "Login failed" });
+        }
+      })
+      .catch(err => showResponse(err));
+    }
+  
+    function showResponse(data) {
+      document.getElementById('response').textContent = JSON.stringify(data, null, 2);
+    }
+  </script>
+  
+</body>
+</html>
