@@ -21,20 +21,23 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 import redis  # new
 import json
+from dotenv import load_dotenv
+import os
 
+load_dotenv()
 
 
 
 
 #token
-SECRET_KEY = "SHDDB33H3HXCBJCC"
-REFRESH_SECRET_KEY = "HJCJHCB458766758829"
+SECRET_KEY = os.getenv("SECRET_KEY")
+REFRESH_SECRET_KEY = os.getenv("REFRESH_SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 10
 ACCESS_TOKEN_EXPIRE_DAYS = 7
 
 #nan ne Database
-DATABASE_URL="sqlite:///./project2.db"
+DATABASE_URL = os.getenv("DATABASE_URL")
 engine = create_engine(DATABASE_URL, connect_args={"check_same_thread": False})
 SessionLocal = sessionmaker(bind=engine, autoflush=False)
 Base = declarative_base()
@@ -43,8 +46,8 @@ Base = declarative_base()
 #email utilitiress
 SMTP_HOST = "smtp.gmail.com"
 SMTP_PORT = 465
-SMTP_USER = "muhsinbabakusa@gmail.com"
-SMTP_PASS =  "zmejyzjojcdsdkoe"
+SMTP_USER = os.getenv("SMTP_USER")
+SMTP_PASS = os.getenv("SMTP_PASS")
 FROM_EMAIL = SMTP_USER
 
 #roles for access limit
