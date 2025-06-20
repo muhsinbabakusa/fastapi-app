@@ -8,3 +8,4 @@ email-validator
 pydantic
 redis
 slowapi
+python-dotenv
